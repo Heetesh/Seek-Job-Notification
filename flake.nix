@@ -2,7 +2,7 @@
   description = "Dev environment for Vue.js + FastAPI project";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
     poetry.url = "github:nix-community/poetry2nix";
   };
@@ -14,19 +14,19 @@
           inherit system;
         };
 
+
         pythonEnv = pkgs.python311.withPackages (ps: with ps; [
-          fastapi
-          uvicorn
+           (fastapi.overridePythonAttrs (old: { doCheck = false; }))
+          (uvicorn.overridePythonAttrs (old: { doCheck = false; }))
           httpx
           black
-          isort
           # add more Python packages as needed
         ]);
       in {
         devShell = pkgs.mkShell {
           buildInputs = [
             pythonEnv
-            pkgs.nodejs_20
+            pkgs.nodejs_22
             pkgs.yarn
             pkgs.git
             pkgs.poetry

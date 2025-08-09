@@ -13,5 +13,6 @@
     "**/node_modules/**": true,
     "**/.git/**": true,
     "**/.venv/**": true
-  }
+  },
+  "python-envs.pythonProjects": []
 }
